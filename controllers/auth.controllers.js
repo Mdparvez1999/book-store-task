@@ -37,7 +37,6 @@ const registerController = asyncHandler(async (req, res, next) => {
 });
 
 const loginController = asyncHandler(async (req, res, next) => {
-    console.log("hello");
     const { email, password } = req.body;
     if (!email || !password) {
         const err = new AppError("all fields are required", 400);
@@ -80,8 +79,6 @@ const forgotPasswordController = asyncHandler(async (req, res, next) => {
 
     const user = await User.findOne({ email });
 
-    console.log(user);
-
     if (!user) {
         const err = new AppError("invalid credentials", 401);
 
@@ -105,7 +102,7 @@ const forgotPasswordController = asyncHandler(async (req, res, next) => {
         subject: "password reset",
         html:
             `<h1>Click on the below link to reset your password</h1>
-                <p>http://localhost:5000/app/v1/auth/reset-password/${token}</p>`
+                <p>http://localhost:8000/api/v1/auth/reset-password/${token}</p>`
     };
 
     sendEmail(mailOptions);
